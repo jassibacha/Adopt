@@ -14,8 +14,9 @@ content %}
             {{ form.hidden_tag() }} {% for field in form if
             field.widget.input_type != 'hidden'%}
             <div class="mb-3">
-                {% if field.widget.input_type == 'checkbox' %}
-                {{field(class_="form-check-input")}}
+                {# Bootstrap doesn't play well with checkboxes, so we need to
+                change the classes #} {% if field.widget.input_type ==
+                'checkbox' %} {{field(class_="form-check-input")}}
                 {{field.label(class_="form-check-label")}} {% for err in
                 field.errors %} {{err}} {% endfor %} {% else %}
                 {{field.label(class_="form-label")}}

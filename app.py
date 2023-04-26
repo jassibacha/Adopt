@@ -19,7 +19,6 @@ db.create_all()
 def home():
     """Show all pets"""
     pets = Pet.query.all()
-    """Show list of posts"""
     return render_template('home.html', pets=pets)
 
 @app.route('/add', methods=["GET", "POST"])
@@ -27,16 +26,18 @@ def add_pet():
     """Show add pet form (GET) or handles form submission (POST)"""
     form = AddPetForm()
     if form.validate_on_submit():
-        name = form.name.data
-        species = form.species.data
-        photo_url = form.photo_url.data
-        age = form.age.data
-        notes = form.notes.data
-        available = True
-        pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes, available=available)
+        # name = form.name.data
+        # species = form.species.data
+        # photo_url = form.photo_url.data
+        # age = form.age.data
+        # notes = form.notes.data
+        # available = True
+        # pet = Pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes, available=available)
+        data = {k: v for k, v in form.data.items() if k != "csrf_token"}
+        pet = Pet(**data)
         db.session.add(pet)
         db.session.commit()
-        flash(f"{name} has been added!", "success")
+        flash(f"{pet.name} has been added!", "success")
         return redirect('/')
     else:
         return render_template('add-pet.html', form=form)
