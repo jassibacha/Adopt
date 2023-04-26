@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block title %}Adopt{% endblock %} {% block content
+%}
+<div class="row">
+    <h1 class="mb-4">Pets At Our Shelter</h1>
+
+    {% for pet in pets %}
+    <div class="col-sm-4 col-md-4 col-lg-3">
+        <div class="card mb-3">
+            <img
+                src="{{pet.photo_url}}"
+                class="card-img-top"
+                alt="{{pet.name}}"
+            />
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{pet.name}} {% if pet.available %}
+                    <span class="badge bg-success">Available</span>
+                    {% else %}
+                    <span class="badge bg-danger">Not Available</span>
+                    {% endif %}
+                </h5>
+                <p class="card-text">{{pet.notes}}</p>
+                <a href="/{{pet.id}}" class="btn btn-primary btn-sm"
+                    >View / Edit Pet</a
+                >
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}
